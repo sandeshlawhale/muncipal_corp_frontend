@@ -40,6 +40,7 @@ interface BirthFormData {
 interface SavedForm {
   id: string;
   savedAt: string;
+  status: "data-added" | "revoked";
   data: BirthFormData;
 }
 
@@ -144,6 +145,7 @@ export default function BirthCertificatePage() {
       const savedForm: SavedForm = {
         id: formId,
         savedAt: new Date().toISOString(),
+        status: "data-added",
         data: formData,
       };
 
@@ -153,6 +155,7 @@ export default function BirthCertificatePage() {
           (form) => form.id === editFormId
         );
         if (formIndex !== -1) {
+          savedForm.status = formsData.birth[formIndex].status;
           formsData.birth[formIndex] = savedForm;
         }
       } else {

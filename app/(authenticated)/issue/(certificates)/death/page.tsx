@@ -35,6 +35,7 @@ interface DeathFormData {
 interface SavedForm {
   id: string;
   savedAt: string;
+  status: "data-added" | "revoked";
   data: DeathFormData;
 }
 
@@ -134,6 +135,7 @@ export default function DeathCertificatePage() {
       const savedForm: SavedForm = {
         id: formId,
         savedAt: new Date().toISOString(),
+        status: "data-added",
         data: formData,
       };
 
@@ -143,6 +145,7 @@ export default function DeathCertificatePage() {
           (form) => form.id === editFormId
         );
         if (formIndex !== -1) {
+          savedForm.status = formsData.death[formIndex].status;
           formsData.death[formIndex] = savedForm;
         }
       } else {
