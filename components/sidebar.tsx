@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { LayoutDashboard, FileText, Users, type LucideIcon } from "lucide-react"
+import { LayoutDashboard, FileText, Users, ClipboardList, type LucideIcon } from "lucide-react"
 
 interface SidebarItem {
   title: string
@@ -16,6 +16,11 @@ const sidebarItems: SidebarItem[] = [
     title: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
+  },
+  {
+    title: "Issue",
+    href: "/issue",
+    icon: ClipboardList,
   },
   {
     title: "Documents",
