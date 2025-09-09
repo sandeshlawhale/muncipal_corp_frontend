@@ -12,7 +12,21 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Edit, Plus } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Plus,
+  MoreHorizontal,
+  Edit,
+  Eye,
+  FileCheck,
+  X,
+  RotateCcw,
+} from "lucide-react";
 
 interface Department {
   id: string;
@@ -114,6 +128,26 @@ export default function IssuePage() {
     }
   };
 
+  const handlePreviewForm = (formId: string) => {
+    // TODO: Implement preview functionality
+    console.log("Preview form:", formId);
+  };
+
+  const handleIssueForm = (formId: string) => {
+    // TODO: Implement issue functionality
+    console.log("Issue form:", formId);
+  };
+
+  const handleRevokeForm = (formId: string) => {
+    // TODO: Implement revoke functionality
+    console.log("Revoke form:", formId);
+  };
+
+  const handleReissueForm = (formId: string) => {
+    // TODO: Implement reissue functionality
+    console.log("Reissue form:", formId);
+  };
+
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Issue</h1>
@@ -123,7 +157,7 @@ export default function IssuePage() {
           value={selectedDepartment}
           onValueChange={handleDepartmentChange}
         >
-          <SelectTrigger className="w-64">
+          <SelectTrigger className="w-sm">
             <SelectValue placeholder="Select Department" />
           </SelectTrigger>
           <SelectContent>
@@ -140,7 +174,7 @@ export default function IssuePage() {
           onValueChange={setSelectedType}
           disabled={!selectedDepartment}
         >
-          <SelectTrigger className="w-64">
+          <SelectTrigger className="w-sm">
             <SelectValue placeholder="Select Document Type" />
           </SelectTrigger>
           <SelectContent>
@@ -179,13 +213,45 @@ export default function IssuePage() {
                       </div>
                       <Badge variant="secondary">Saved, not Issued</Badge>
                     </div>
-                    <Button
-                      variant="outline"
-                      onClick={() => handleEditForm(form.id)}
-                    >
-                      <Edit className="w-4 h-4 mr-2" />
-                      Edit
-                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="sm">
+                          <MoreHorizontal className="w-4 h-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem
+                          onClick={() => handleEditForm(form.id)}
+                        >
+                          <Edit className="w-4 h-4 mr-2" />
+                          EDIT
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => handlePreviewForm(form.id)}
+                        >
+                          <Eye className="w-4 h-4 mr-2" />
+                          PREVIEW
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => handleIssueForm(form.id)}
+                        >
+                          <FileCheck className="w-4 h-4 mr-2" />
+                          ISSUE
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => handleRevokeForm(form.id)}
+                        >
+                          <X className="w-4 h-4 mr-2" />
+                          REVOKE
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => handleReissueForm(form.id)}
+                        >
+                          <RotateCcw className="w-4 h-4 mr-2" />
+                          REISSUE
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                 ))}
               </div>

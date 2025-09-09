@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import AddField from "../../_components/AddField";
 import FormActions from "../../_components/FormActions";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface CustomField {
   id: string;
@@ -20,6 +21,15 @@ interface DeathFormData {
   date: string;
   subject: string;
   customFields: CustomField[];
+  dateOfDeath: string;
+  deceasedGender: string;
+  placeOfDeath: string;
+  applicantSurname: string;
+  applicantName: string;
+  applicantFatherName: string;
+  deceasedSurname: string;
+  deceasedName: string;
+  deceasedFatherName: string;
 }
 
 interface SavedForm {
@@ -37,6 +47,15 @@ export default function DeathCertificatePage() {
   const [formData, setFormData] = useState<DeathFormData>({
     date: new Date().toISOString().split("T")[0],
     subject: "Regarding obtaining death certificate",
+    dateOfDeath: new Date().toISOString().split("T")[0],
+    deceasedGender: "",
+    placeOfDeath: "",
+    applicantSurname: "",
+    applicantName: "",
+    applicantFatherName: "",
+    deceasedSurname: "",
+    deceasedName: "",
+    deceasedFatherName: "",
     customFields: [],
   });
 
@@ -152,7 +171,7 @@ export default function DeathCertificatePage() {
         <h1 className="text-3xl font-bold">
           {editFormId ? "Edit Death Certificate" : "Death Certificate"}
         </h1>
-        <FormActions onSave={handleSave} onIssue={handleIssue} />
+        <FormActions onSave={handleSave} />
       </div>
 
       <Card>
@@ -160,6 +179,7 @@ export default function DeathCertificatePage() {
           <CardTitle>Certificate Details</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
+          {/* Date & Subject */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="date">Date</Label>
@@ -183,13 +203,133 @@ export default function DeathCertificatePage() {
 
           <Separator />
 
-          <div className="p-8 text-center text-muted-foreground border-2 border-dashed rounded-lg">
-            <p>Death certificate form fields will be added here.</p>
-            <p className="text-sm">
-              This is a placeholder section for future development.
-            </p>
+          {/* Applicant Details */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Applicant Details</h3>
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <Label htmlFor="applicantSurname">Surname</Label>
+                <Input
+                  id="applicantSurname"
+                  value={formData.applicantSurname}
+                  onChange={(e) =>
+                    updateField("applicantSurname", e.target.value)
+                  }
+                />
+              </div>
+              <div>
+                <Label htmlFor="applicantName">Name</Label>
+                <Input
+                  id="applicantName"
+                  value={formData.applicantName}
+                  onChange={(e) => updateField("applicantName", e.target.value)}
+                />
+              </div>
+              <div>
+                <Label htmlFor="applicantFatherName">
+                  Father's/Husband's Name
+                </Label>
+                <Input
+                  id="applicantFatherName"
+                  value={formData.applicantFatherName}
+                  onChange={(e) =>
+                    updateField("applicantFatherName", e.target.value)
+                  }
+                />
+              </div>
+            </div>
           </div>
 
+          <Separator />
+
+          {/* Related Person Info */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Details of Deceased</h3>
+            <div className="space-y-4">
+              {/* Full Name */}
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="deceasedSurname">Surname</Label>
+                  <Input
+                    id="deceasedSurname"
+                    value={formData.deceasedSurname}
+                    onChange={(e) =>
+                      updateField("deceasedSurname", e.target.value)
+                    }
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="deceasedName">Name</Label>
+                  <Input
+                    id="deceasedName"
+                    value={formData.deceasedName}
+                    onChange={(e) =>
+                      updateField("deceasedName", e.target.value)
+                    }
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="deceasedFatherName">
+                    Father's/Husband's Name
+                  </Label>
+                  <Input
+                    id="deceasedFatherName"
+                    value={formData.deceasedFatherName}
+                    onChange={(e) =>
+                      updateField("deceasedFatherName", e.target.value)
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* Date of Death */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="dateOfDeath">Date of Death</Label>
+                  <Input
+                    id="dateOfDeath"
+                    type="date"
+                    value={formData.dateOfDeath}
+                    onChange={(e) => updateField("dateOfDeath", e.target.value)}
+                  />
+                </div>
+
+                {/* Gender */}
+                <div>
+                  <Label>Gender of Deceased</Label>
+                  <RadioGroup
+                    value={formData.deceasedGender}
+                    onValueChange={(value) =>
+                      updateField("deceasedGender", value)
+                    }
+                    className="flex gap-6 mt-2"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="male" id="male" />
+                      <Label htmlFor="male">Male</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="female" id="female" />
+                      <Label htmlFor="female">Female</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+              </div>
+
+              {/* Address */}
+              <div>
+                <Label htmlFor="placeOfDeath">Address of Place of Death</Label>
+                <Input
+                  id="placeOfDeath"
+                  value={formData.placeOfDeath}
+                  onChange={(e) => updateField("placeOfDeath", e.target.value)}
+                  placeholder="Enter address"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Custom Fields (optional, if you want like Birth) */}
           {formData.customFields.length > 0 && (
             <>
               <Separator />

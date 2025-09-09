@@ -181,7 +181,7 @@ export default function BirthCertificatePage() {
         <h1 className="text-3xl font-bold">
           {editFormId ? "Edit Birth Certificate" : "Birth Certificate"}
         </h1>
-        <FormActions onSave={handleSave} onIssue={handleIssue} />
+        <FormActions onSave={handleSave} />
       </div>
 
       <Card>
