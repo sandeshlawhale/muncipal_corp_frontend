@@ -157,7 +157,7 @@ export default function DeathCertificatePage() {
       console.log("[v0] Death certificate form saved successfully");
 
       // Navigate back to issue page
-      router.push("/issue");
+      // router.push("/issue");
     } catch (error) {
       console.error("Error saving form:", error);
     }

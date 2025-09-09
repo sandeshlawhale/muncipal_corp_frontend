@@ -167,7 +167,7 @@ export default function BirthCertificatePage() {
       console.log("[v0] Birth certificate form saved successfully");
 
       // Navigate back to issue page
-      router.push("/issue");
+      // router.push("/issue");
     } catch (error) {
       console.error("Error saving form:", error);
     }

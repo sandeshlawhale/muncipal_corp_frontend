@@ -60,16 +60,16 @@ const dummyDepartments: Department[] = [
     id: "rural",
     name: "Rural Development",
     types: [
-      { id: "birth", name: "Birth Certificate", route: "/issue/birth" },
-      { id: "death", name: "Death Certificate", route: "/issue/death" },
+      { id: "birth", name: "Birth Certificate", route: "/birth" },
+      { id: "death", name: "Death Certificate", route: "/death" },
     ],
   },
   {
     id: "health",
     name: "Health Department",
     types: [
-      { id: "birth", name: "Birth Certificate", route: "/issue/birth" },
-      { id: "death", name: "Death Certificate", route: "/issue/death" },
+      { id: "birth", name: "Birth Certificate", route: "/birth" },
+      { id: "death", name: "Death Certificate", route: "/death" },
     ],
   },
 ];
@@ -122,7 +122,7 @@ export default function IssuePage() {
     const types = getAvailableTypes();
     const selectedTypeObj = types.find((t) => t.id === selectedType);
     if (selectedTypeObj) {
-      router.push(`/issue/(certificates)${selectedTypeObj.route}`);
+      router.push(`/issue/${selectedTypeObj.route}`);
     }
   };
 
@@ -130,9 +130,7 @@ export default function IssuePage() {
     const types = getAvailableTypes();
     const selectedTypeObj = types.find((t) => t.id === selectedType);
     if (selectedTypeObj) {
-      router.push(
-        `/issue/(certificates)${selectedTypeObj.route}?edit=${formId}`
-      );
+      router.push(`/issue/${selectedTypeObj.route}?edit=${formId}`);
     }
   };
 
@@ -278,7 +276,7 @@ export default function IssuePage() {
               Saved Forms
               <Button onClick={handleAddNewForm}>
                 <Plus className="w-4 h-4 mr-2" />
-                Add New Form
+                Add New Certificate
               </Button>
             </CardTitle>
           </CardHeader>
@@ -350,7 +348,7 @@ export default function IssuePage() {
               <div className="text-center py-8 text-muted-foreground">
                 {savedForms.length > 0
                   ? "No forms match the current filters."
-                  : 'No saved forms found. Click "Add New Form" to create one.'}
+                  : 'No saved certificates found. Click "Add New Certificate" to create one.'}
               </div>
             )}
           </CardContent>
